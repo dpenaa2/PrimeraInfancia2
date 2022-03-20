@@ -1,0 +1,34 @@
+{% extends 'index.html'%}
+{% block titulo %}
+Reguiones
+{% endblock titulo %}
+{% block content %}
+<section class="section">
+    <div class="row" id="table-striped">
+        <div class="col-12">
+            <div class="card">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Nombre</th>
+                                <th>Opciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for region in regionales %}
+                            <tr>
+                                <td>{{region.idregional}}</td>
+                                <td>{{region.nombre}}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

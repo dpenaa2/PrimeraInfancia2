@@ -1,6 +1,10 @@
+
 from django.urls import path
-from .views import Home
+from .views import reguionList, crearReguion, home
+
 urlpatterns = [
-    path('', Home, name = 'index')
+    path('', home, name='index'),
+    path('reguionList', reguionList, name='reguionList'),
+    path('crearReguion', crearReguion, name='crearReguion')
 
 ]
