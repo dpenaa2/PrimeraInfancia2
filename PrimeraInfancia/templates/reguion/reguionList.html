@@ -3,32 +3,86 @@
 Reguiones
 {% endblock titulo %}
 {% block content %}
-<section class="section">
-    <div class="row" id="table-striped">
-        <div class="col-12">
+<section id="input-style">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-right">
+            <li class="breadcrumb-item"><a href="#">Administrador</a></li>
+            <li class="breadcrumb-item"><a href="#">Reguiones</a></li>
+        </ol>
+    </nav>
+    <div class="row">
+        <div class="col-md-12">
             <div class="card">
-                    <div class="table-responsive">
-                        <table class="table table-striped mb-0">
-                            <thead>
-                            <tr>
-                                <th>Codigo</th>
-                                <th>Nombre</th>
-                                <th>Opciones</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for region in regionales %}
-                            <tr>
-                                <td>{{region.idregional}}</td>
-                                <td>{{region.nombre}}</td>
-                            </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                <div class="card-header">
+                    <h4 class="card-title">Consultar Reguines</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="roundText">Codigo</label>
+                                <input type="text" id="roundText" class="form-control round"
+                                       placeholder="Rounded Input">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="squareText">Nombre</label>
+                                <input type="text" id="squareText" class="form-control square"
+                                       placeholder="Square Input">
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex justify-content-end">
+                            <button type="submit"
+                                    class="btn btn-primary me-1 mb-1">Buscar
+                            </button>
+                            <button type="reset"
+                                    class="btn btn-light-secondary me-1 mb-1">Nuevo
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="row" id="table-striped">
+        <div class="col-12">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Opciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for region in regionales %}
+                        <tr>
+                            <td>{{region.idregional}}</td>
+                            <td>{{region.nombre}}</td>
+                            <td>
+                                <button type="reset" class="btn btn-sm btn-outline-success">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button type="reset" class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </section>
 {% endblock content %}
