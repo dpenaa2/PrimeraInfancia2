@@ -1,0 +1,21 @@
+{% extends 'list.html'%}
+{% block card-body %}
+<div class="col-sm-6">
+    <div class="form-group">
+        <label for="roundText">Codigo</label>
+        <input type="text" id="roundText" class="form-control round"
+               placeholder="Rounded Input">
+    </div>
+</div>
+<div class="col-sm-6">
+    <div class="form-group">
+        <label for="squareText">Nombre</label>
+        <input type="text" id="squareText" class="form-control square"
+               placeholder="Square Input">
+    </div>
+</div>
+<div class="buttons col-12 d-flex justify-content-end">
+    <a href="#" class="btn btn-primary"><i class="bi bi-plus"></i> Nuevo</a>
+    <a href="#" class="btn btn-light-secondary me-1 mb-1">Progress</a>
+</div>
+{% endblock card-body %}

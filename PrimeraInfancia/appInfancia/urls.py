@@ -1,10 +1,11 @@
 
 from django.urls import path
-from .views import reguionList, crearReguion, home
+from .views.Region.views import *
 
+app_name = 'appInfancia'
 urlpatterns = [
-    path('', home, name='index'),
-    path('reguionList', reguionList, name='reguionList'),
-    path('crearReguion', crearReguion, name='crearReguion')
+    #path('', home, name='index'),
+    path('Region/list', RegionListView.as_view(), name ='region_list'),
+    #path('crearReguion', crearReguion, name='crearReguion')
 
 ]
