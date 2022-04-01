@@ -28,8 +28,15 @@ class Nacionalidad(models.Model):
 
 
 class Regionales(models.Model):
-    idregional = models.AutoField(db_column='idRegional', primary_key=True)  # Field name made lowercase.
+    idregional = models.AutoField(db_column='idRegional', primary_key=True)  # Field name made lowercasajax que ese.
     nombre = models.CharField(db_column='Nombre', max_length=45)  # Field name made lowercase.
+    ESTADO_ID = (
+        ('1', 'Activo'),
+        ('2', 'Inactivo'),
+    )
+    estado = models.CharField(max_length=1, choices=ESTADO_ID, default=1)
+
+
 
     class Meta:
         verbose_name = 'regional'
@@ -38,6 +45,7 @@ class Regionales(models.Model):
         db_table = 'regionales'
         ordering = ['nombre']
 
+
     def __str__(self):
         return self.nombre
 
@@ -45,8 +53,13 @@ class Regionales(models.Model):
 class Municipios(models.Model):
     codigodane = models.CharField(db_column='CodigoDANE', primary_key=True, max_length=45)  # Field name made lowercase.
     nombre = models.CharField(db_column='Nombre', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    reg_idregional = models.ForeignKey('Regionales', on_delete=models.PROTECT,
+    Regional = models.ForeignKey('Regionales', on_delete=models.PROTECT,
                                        db_column='Reg_idRegional')  # Field name made lowercase.
+    ESTADO_ID = (
+        ('1', 'Activo'),
+        ('2', 'Inactivo'),
+    )
+    estado = models.CharField(max_length=1, choices=ESTADO_ID, default=1)
 
     class Meta:
         managed = True
@@ -58,6 +71,11 @@ class CentroZonal(models.Model):
     nombre = models.CharField(db_column='Nombre', max_length=45)  # Field name made lowercase.
     mun_codigodane = models.ForeignKey('Municipios', on_delete=models.DO_NOTHING,
                                        db_column='Mun_CodigoDANE')  # Field name made lowercase.
+    ESTADO_ID = (
+        ('1', 'Activo'),
+        ('2', 'Inactivo'),
+    )
+    estado = models.CharField(max_length=1, choices=ESTADO_ID, default=1)
 
     class Meta:
         managed = True

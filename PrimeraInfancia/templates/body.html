@@ -3,6 +3,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
@@ -29,6 +30,9 @@
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/app.css' %}">
 
+     <!-- block head -->
+    {% block head %}
+    {% endblock head %}
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -36,7 +40,7 @@
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__wobble" src="{% static 'assets/images/logo/logo1.png' %}" height="60" width="60">
+        <img class="animation__wobble" src="{% static 'assets/images/logo/logo.png' %}" height="60" width="60">
     </div>
 
     {% include 'header.html' %}
@@ -48,10 +52,8 @@
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">{{title}}</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
+
+                    <div class="col-sm-12">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">{{menu}}</a></li>
                             <li class="breadcrumb-item active">{{module}}</li>
@@ -95,5 +97,9 @@
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{% static 'assets/js/pages/dashboard.js' %}"></script>
+
+<!-- block head -->
+    {% block js %}
+    {% endblock js %}
 </body>
 </html>

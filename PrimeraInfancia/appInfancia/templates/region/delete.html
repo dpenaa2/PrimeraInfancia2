@@ -1,0 +1,33 @@
+{% extends 'body.html'%}
+{% block Content%}
+<div class="modal-dialog modal-centered modal-dialog-scrollable modal-sm"
+     role="document">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+            <h5 class="modal-title white" id="myModalLabel120">
+                Eliminar
+            </h5>
+            <button type="button" class="close"
+                    data-bs-dismiss="modal" aria-label="Close">
+                <i data-feather="x"></i>
+            </button>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="modal-body">
+                ¿Esta seguro de eliminar el registro {{ object}} ?
+            </div>
+            <div class="modal-footer">
+                <div class="col-12 d-flex justify-content-end">
+                    <button type="submit"
+                            class="btn btn-primary me-1 mb-1">{{action}}
+                    </button>
+                    <a type="reset" class="btn btn-light-secondary me-1 mb-1"
+                       href="{% url 'appInfancia:region_list' %} ">Cerrar
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock Content%}

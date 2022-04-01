@@ -16,9 +16,9 @@
         </div>
     </div>
     <div class="buttons col-12 d-flex justify-content-end">
-        <a href="{% url 'appInfancia:region_create' %} "
+        <a href="{% url 'appInfancia:municipio_create' %} "
            class="btn btn-primary"><i class="bi bi-plus"></i> Nuevo</a>
-        <a href="{% url 'appInfancia:region_list' %} " class="btn btn-light-secondary me-1 mb-1">Buscar</a>
+        <a href="{% url 'appInfancia:municipio_list' %} " class="btn btn-light-secondary me-1 mb-1">Buscar</a>
     </div>
 
 
@@ -28,24 +28,26 @@
 <tr>
     <th>Codigo</th>
     <th>Nombre</th>
+    <th>Region</th>
     <th>Estado</th>
     <th>Opciones</th>
 </tr>
 {% endblock thead %}
 
 {% block tbody %}
-{% for region in object_list %}
+{% for municipio in object_list %}
 <tr>
-    <td>{{region.idregional}}</td>
-    <td>{{region.nombre}}</td>
-    <td><span class="badge bg-success">{{region.get_estado_display}}</span></td>
+    <td>{{municipio.codigodane}}</td>
+    <td>{{municipio.nombre}}</td>
+    <td>{{municipio.Regional}}</td>
+    <td><span class="badge bg-success">{{municipio.get_estado_display}}</span></td>
     <td>
         <a type="button" class="btn btn-sm btn-outline-success"
-           href="{% url 'appInfancia:region_edit' region.idregional %}">
+           href="{% url 'appInfancia:municipio_edit' municipio.codigodane %}">
             <i class="bi bi-pencil-square"></i>
         </a>
         <a type="button" class="btn btn-sm btn-outline-danger"
-           href="{% url 'appInfancia:region_delete' region.idregional %}">
+           href="{% url 'appInfancia:municipio_delete' municipio.codigodane %}">
             <i class="bi bi-trash"></i>
         </a>
 
