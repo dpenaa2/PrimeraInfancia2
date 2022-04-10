@@ -15,7 +15,7 @@
         <form method="post">
             {% csrf_token %}
             <div class="modal-body">
-                ¿Esta seguro de eliminar el registro {{ object}} ?
+                ¿Esta seguro de eliminar el registro {{object.nombre}} ?
             </div>
             <div class="modal-footer">
                 <div class="col-12 d-flex justify-content-end">
@@ -23,7 +23,7 @@
                             class="btn btn-primary me-1 mb-1">{{action}}
                     </button>
                     <a type="reset" class="btn btn-light-secondary me-1 mb-1"
-                       href="{% url 'appInfancia:region_list' %} ">Cerrar
+                       href="{% url 'appInfancia:municipio_list' %} ">Cerrar
                     </a>
                 </div>
             </div>

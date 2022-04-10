@@ -9,8 +9,6 @@ from django.urls import reverse_lazy
 class RegionListView(ListView):
     models = Regionales
     template_name = 'region/list.html'
-    paginate_by = 10
-
 
     def get_queryset(self):
         return Regionales.objects.order_by('idregional')

@@ -1,28 +1,11 @@
 {% extends 'plantilla1.html'%}
-{% block card-body %}
 
-    <div class="col-sm-6">
-        <div class="form-group">
-            <label for="roundText">Codigo</label>
-            <input type="text" id="roundText" class="form-control round" name="Codigo"
-                   placeholder="Codigo">
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="form-group">
-            <label for="squareText">Nombre</label>
-            <input type="text" id="squareText" class="form-control square" name="Nombre"
-                   placeholder="Nombre">
-        </div>
-    </div>
-    <div class="buttons col-12 d-flex justify-content-end">
+{% block butom %}
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <a href="{% url 'appInfancia:municipio_create' %} "
            class="btn btn-primary"><i class="bi bi-plus"></i> Nuevo</a>
-        <a href="{% url 'appInfancia:municipio_list' %} " class="btn btn-light-secondary me-1 mb-1">Buscar</a>
     </div>
-
-
-{% endblock card-body %}
+{% endblock butom %}
 
 {% block thead %}
 <tr>

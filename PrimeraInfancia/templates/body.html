@@ -32,6 +32,7 @@
 
      <!-- block head -->
     {% block head %}
+
     {% endblock head %}
 </head>
 
@@ -84,10 +85,11 @@
 
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
-<script src="{% static 'plugins/jquery-mousewheel/jquery.mousewheel.js' %}"></script>
-<script src="{% static 'plugins/raphael/raphael.min.js' %}"></script>
 <script src="{% static 'plugins/jquery-mapael/jquery.mapael.min.js' %}"></script>
 <script src="{% static 'plugins/jquery-mapael/maps/usa_states.min.js' %}"></script>
+<script src="{% static 'plugins/jquery-mousewheel/jquery.mousewheel.js' %}"></script>
+<script src="{% static 'plugins/raphael/raphael.min.js' %}"></script>
+
 <!-- ChartJS -->
 <script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
 <script src="{% static 'assets/vendors/apexcharts/apexcharts.js' %}"></script>
@@ -98,8 +100,14 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{% static 'assets/js/pages/dashboard.js' %}"></script>
 
+<!-- datatables -->
+<script src="{% static 'assets/lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+<script src="{% static 'assets/lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'assets/lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'assets/lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+
 <!-- block head -->
-    {% block js %}
-    {% endblock js %}
+{% block javascript %}
+{% endblock javascript %}
 </body>
 </html>

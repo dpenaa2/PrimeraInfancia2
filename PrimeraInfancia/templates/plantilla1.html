@@ -1,34 +1,23 @@
 {% extends 'body.html'%}
-
+{% load static %}
+   <link rel="stylesheet" href="{% static 'assets/lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
 {% block Content%}
-<section id="input-style">
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">{{title}}</h4>
-                </div>
-
-                <div class="card-body">
-                    <div class="row">
-                        {% block card-body %}
-
-                        {% endblock card-body %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <section class="section">
     <div class="row" id="data">
         <div class="col-12">
             <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title">{{title}}</h4>
+                    {% block butom %}
+
+                      {% endblock butom %}
+                </div>
                 <div class="card-body">
+
                     <div class="table-responsive">
-                        <table class="table table-striped mb-0">
+                        <table class="table table-striped mb-0" id="tablalist">
                             <thead>
                             {% block thead %}
 
@@ -42,38 +31,6 @@
                         </table>
                     </div>
                 </div>
-
-
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination pagination-primary  justify-content-center">
-                        <li class="page-item ">
-                            {% if page_obj.has_previous %}
-                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"
-                               aria-disabled="true">Previous</a>
-                            {% endif %}
-                        </li>
-
-                        {% for i in page_obj.paginator.page_range %}
-
-                        {% if i == page_obj.number %}
-                        <li class="page-item active">
-                            <a class="page-link" href="#">{{ i }}</a>
-                        </li>
-                        {% else %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
-                        </li>
-                        {% endif %}
-
-                        {% endfor %}
-
-                        <li class="page-item">
-                            {% if page_obj.has_next %}
-                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
-                            {% endif %}
-                        </li>
-                    </ul>
-                </nav>
             </div>
         </div>
     </div>
@@ -82,3 +39,22 @@
 
 
 {% endblock Content%}
+
+{% block javascript %}
+
+<script type="application/javascript">
+
+$(function(){
+    $('#tablalist').DataTable(
+    {
+        "pagingType": "simple_numbers",
+        "language": {
+        "info": "Mostrando página  _PAGE_ de _PAGES_", },
+
+   });
+
+} );
+
+</script>
+
+{% endblock javascript %}

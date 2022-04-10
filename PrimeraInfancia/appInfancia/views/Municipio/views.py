@@ -9,7 +9,6 @@ from django.urls import reverse_lazy
 class MunicipioListView(ListView):
     models = Municipios
     template_name = 'municipio/list.html'
-    paginate_by = 10
 
 
     def get_queryset(self):
