@@ -1,4 +1,6 @@
 from django.db import models
+from datetime import datetime
+from django.forms import model_to_dict
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -6,8 +8,17 @@ from django.dispatch import receiver
 
 # Create your models here.
 class Tipodiscapacidad(models.Model):
-    idTipodiscapacidad = models.IntegerField(primary_key=True)  # Field name made lowercase.
-    nombre = models.CharField(max_length=45, blank=True, null=True)
+    idTipodiscapacidad = models.AutoField(db_column='idTipodiscapacidad',
+                                          primary_key=True)  # Field name made lowercase.
+    nombre = models.CharField(db_column='Nombre', max_length=45, blank=True, null=True, unique=True)
+    ESTADO_ID = (
+        ('1', 'Activo'),
+        ('2', 'Inactivo'),
+    )
+    estado = models.CharField(max_length=1, choices=ESTADO_ID, default=1)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         managed = True
@@ -15,12 +26,13 @@ class Tipodiscapacidad(models.Model):
 
 
 class Nacionalidad(models.Model):
-    idpais = models.AutoField(db_column='idPais', primary_key=True)  # Field name made lowercase.
-    codigopais = models.CharField(db_column='CodigoPais', max_length=3, blank=True,
-                                  null=True)  # Field name made lowercase.
-    nombre = models.CharField(db_column='Nombre', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    idpais = models.AutoField(db_column='idPais', primary_key=True)
+    Pais = models.CharField(db_column='Nombre', max_length=20, blank=True,null=True)
     nacionalidad = models.CharField(db_column='Nacionalidad', max_length=20, blank=True,
-                                    null=True)  # Field name made lowercase.
+                                    null=True, unique=True)  # Field name made lowercase.
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         managed = True
@@ -29,14 +41,15 @@ class Nacionalidad(models.Model):
 
 class Regionales(models.Model):
     idregional = models.AutoField(db_column='idRegional', primary_key=True)  # Field name made lowercasajax que ese.
-    nombre = models.CharField(db_column='Nombre', max_length=45)  # Field name made lowercase.
+    nombre = models.CharField(db_column='Nombre', max_length=45, unique=True)  # Field name made lowercase.
     ESTADO_ID = (
         ('1', 'Activo'),
         ('2', 'Inactivo'),
     )
     estado = models.CharField(max_length=1, choices=ESTADO_ID, default=1)
 
-
+    def __str__(self):
+        return self.nombre
 
     class Meta:
         verbose_name = 'regional'
@@ -46,15 +59,11 @@ class Regionales(models.Model):
         ordering = ['nombre']
 
 
-    def __str__(self):
-        return self.nombre
-
-
 class Municipios(models.Model):
-    codigodane = models.CharField(db_column='CodigoDANE', primary_key=True, max_length=45)  # Field name made lowercase.
-    nombre = models.CharField(db_column='Nombre', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    codigodane = models.CharField(db_column='CodigoDANE', primary_key=True, max_length=45)
+    nombre = models.CharField(db_column='Nombre', max_length=50, blank=True, null=True, unique=True)
     Regional = models.ForeignKey('Regionales', on_delete=models.PROTECT,
-                                       db_column='Reg_idRegional')  # Field name made lowercase.
+                                 db_column='Reg_idRegional')  # Field name made lowercase.
     ESTADO_ID = (
         ('1', 'Activo'),
         ('2', 'Inactivo'),
@@ -68,7 +77,7 @@ class Municipios(models.Model):
 
 class CentroZonal(models.Model):
     idcentro_zonal = models.AutoField(db_column='idCentro_Zonal', primary_key=True)  # Field name made lowercase.
-    nombre = models.CharField(db_column='Nombre', max_length=45)  # Field name made lowercase.
+    nombre = models.CharField(db_column='Nombre', max_length=45, null=False)  # Field name made lowercase.
     mun_codigodane = models.ForeignKey('Municipios', on_delete=models.DO_NOTHING,
                                        db_column='Mun_CodigoDANE')  # Field name made lowercase.
     ESTADO_ID = (
@@ -84,8 +93,8 @@ class CentroZonal(models.Model):
 
 
 class Grupoetnico(models.Model):
-    idgrupoetnico = models.IntegerField(db_column='idGrupoEtnico', primary_key=True)  # Field name made lowercase.
-    nombre = models.CharField(db_column='Nombre', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    idgrupoetnico = models.IntegerField(db_column='idGrupoEtnico', primary_key=True)
+    nombre = models.CharField(db_column='Nombre', max_length=100, blank=True, null=True, unique=True)
 
     class Meta:
         managed = True
@@ -112,8 +121,8 @@ class Tipoidentificacio(models.Model):
 
 
 class Lengua(models.Model):
-    idlengua = models.IntegerField(db_column='idLengua', primary_key=True)  # Field name made lowercase.
-    nombre = models.CharField(db_column='Nombre', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    idlengua = models.IntegerField(db_column='idLengua', primary_key=True)
+    nombre = models.CharField(db_column='Nombre', max_length=45, blank=True, null=True, unique=True)
     otralengua = models.CharField(db_column='OtraLengua', max_length=45, blank=True,
                                   null=True)  # Field name made lowercase.
 
@@ -124,31 +133,48 @@ class Lengua(models.Model):
 
 class Persona(models.Model):
     idpersona = models.AutoField(db_column='idPersona', primary_key=True)
-    no_documento = models.IntegerField(db_column='No_Documento', blank=True, null=True)  # Field name made lowercase.
-    nombres = models.CharField(db_column='Nombres', max_length=50)  # Field name made lowercase.
-    apellidos = models.CharField(db_column='Apellidos', max_length=50)  # Field name made lowercase.
-    telefono = models.CharField(db_column='Telefono', max_length=45, blank=True,
-                                null=True)  # Field name made lowercase.
-    correo = models.CharField(db_column='Correo', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    idTipoIdentificacio = models.OneToOneField(Tipoidentificacio, on_delete=models.DO_NOTHING,
+                                               db_column='TipoId_idTipoIdentificacio')
+    no_documento = models.IntegerField(db_column='No_Documento', blank=True, null=True, unique=True)
+    nombres = models.CharField(db_column='Nombres', max_length=50)
+    apellidos = models.CharField(db_column='Apellidos', max_length=50)
+    sexo = models.OneToOneField(Sexo, on_delete=models.DO_NOTHING,
+                                db_column='Sexo_idSexo')
     fecha_nacimiento = models.DateField(db_column='Fecha_Nacimiento', blank=False,
-                                        null=False)  # Field name made lowercase.
-    nacionalidad_idpais = models.ForeignKey(Nacionalidad, on_delete=models.DO_NOTHING,
-                                            db_column='Nacionalidad_idPais')  # Field name made lowercase.
+                                        null=False)
+    Nacionalidad_idPais = models.ManyToManyField(Nacionalidad,
+                                       db_column='Nacionalidad_idPais')
     cz_idcentro_zonal = models.ForeignKey(CentroZonal, on_delete=models.DO_NOTHING,
-                                          db_column='CZ_idCentro_Zonal')  # Field name made lowercase.
+                                          db_column='CZ_idCentro_Zonal')
     cz_mun_codigodane = models.ForeignKey(Municipios, on_delete=models.DO_NOTHING,
-                                          db_column='CZ_Mun_CodigoDANE')  # Field name made lowercase.
+                                          db_column='CZ_Mun_CodigoDANE')
+    direccion = models.CharField(max_length=150, null=True, blank=True)
     ge_idgrupoetnico = models.OneToOneField(Grupoetnico, on_delete=models.DO_NOTHING,
-                                            db_column='GE_idGrupoEtnico')  # Field name made lowercase.
-    sexo_idsexo = models.OneToOneField(Sexo, on_delete=models.DO_NOTHING,
-                                       db_column='Sexo_idSexo')  # Field name made lowercase.
-    tipoid_idtipoidentificacio = models.OneToOneField(Tipoidentificacio, on_delete=models.DO_NOTHING,
-                                                      db_column='TipoId_idTipoIdentificacio')
+                                            db_column='GE_idGrupoEtnico')
     discapacidad = models.ManyToManyField(Tipodiscapacidad, through='TipodiscapacidadHasPersona')
-    Lenguas = models.ManyToManyField(Lengua, through='LenguaHasPersona')
+    Lenguas = models.ManyToManyField(Lengua, through='LenguaHasPersona'),
+    telefono = models.CharField(db_column='Telefono', max_length=45, blank=True,
+                                null=True)
+    correo = models.CharField(db_column='Correo', max_length=45, blank=True, null=True)
+
+    ESTADO_ID = (
+        ('0', 'PreAprobado'),
+        ('1', 'Aprobado'),
+        ('2', 'Inactivo'),
+    )
+    estado = models.CharField(max_length=1, choices=ESTADO_ID, default=1)
+
+    def __str__(self):
+        return self.get_full_name()
+
+    def get_full_name(self):
+        return '{} {} / {}'.format(self.nombres, self.apellidos, self.no_documento)
 
     class Meta:
         managed = True
+        verbose_name = 'persona'
+        verbose_name_plural = 'persona'
+        ordering = ['idpersona']
         db_table = 'persona'
         unique_together = (('idpersona', 'cz_idcentro_zonal', 'cz_mun_codigodane'),)
 
@@ -158,16 +184,12 @@ class TipodiscapacidadHasPersona(models.Model):
                                            db_column='idTipodiscapacidad')  # Field name made lowercase.
     idpersona = models.ForeignKey(Persona, on_delete=models.DO_NOTHING,
                                   db_column='idpersona')  # Field name made lowercase.
-    idcentro_zonal = models.ForeignKey(CentroZonal, on_delete=models.DO_NOTHING,
-                                       db_column='idcentro_zonal')  # Field name made lowercase.
-    mun_codigodane = models.ForeignKey(Municipios, on_delete=models.DO_NOTHING,
-                                       db_column='mun_codigodane')  # Field name made lowercase.
 
     class Meta:
         managed = True
         db_table = 'Tipodiscapacidad_has_persona'
         unique_together = (
-            ('idTipodiscapacidad', 'idpersona', 'idcentro_zonal', 'mun_codigodane'),)
+            ('idTipodiscapacidad', 'idpersona'),)
 
 
 class LenguaHasPersona(models.Model):
@@ -180,6 +202,18 @@ class LenguaHasPersona(models.Model):
         managed = True
         db_table = 'lengua_has_persona'
         unique_together = (('len_idlengua', 'idpersona'),)
+
+
+class NacionalidadHasPersona(models.Model):
+    IdNacionalidad = models.ForeignKey(Lengua, on_delete=models.DO_NOTHING,
+                                       db_column='IdNacionalidad')  # Field name made lowercase.
+    idpersona = models.ForeignKey(Persona, on_delete=models.DO_NOTHING,
+                                  db_column='idpersona')  # Field name made lowercase.
+
+    class Meta:
+        managed = True
+        db_table = 'Nacionalidad_has_persona'
+        unique_together = (('IdNacionalidad', 'idpersona'),)
 
 
 class Remision(models.Model):
@@ -379,20 +413,6 @@ class Ong(models.Model):
     class Meta:
         managed = True
         db_table = 'ong'
-
-
-class Perfiles(models.Model):
-    idperfilesroles = models.AutoField(db_column='idPerfilesRoles', primary_key=True)  # Field name made lowercase.
-    codigopero = models.IntegerField(db_column='CodigoPERO', blank=True, null=True)  # Field name made lowercase.
-    nombrepero = models.CharField(db_column='NombrePERO', max_length=30, blank=True,
-                                  null=True)  # Field name made lowercase.
-    usuariocrea = models.IntegerField(db_column='UsuarioCrea', blank=True, null=True)  # Field name made lowercase.
-    usuariomodifica = models.IntegerField(db_column='UsuarioModifica', blank=True,
-                                          null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = True
-        db_table = 'perfiles'
 
 
 class PersonaHasGrupofocal(models.Model):

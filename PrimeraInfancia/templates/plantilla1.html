@@ -1,18 +1,20 @@
 {% extends 'body.html'%}
 {% load static %}
-   <link rel="stylesheet" href="{% static 'assets/lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
-    <link rel="stylesheet" href="{% static 'assets/lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+
+<link rel="stylesheet" href="{% static 'assets/lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+<link rel="stylesheet"
+      href="{% static 'assets/lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
 {% block Content%}
 
 <section class="section">
     <div class="row" id="data">
         <div class="col-12">
             <div class="card">
-                  <div class="card-header">
+                <div class="card-header">
                     <h4 class="card-title">{{title}}</h4>
                     {% block butom %}
 
-                      {% endblock butom %}
+                    {% endblock butom %}
                 </div>
                 <div class="card-body">
 
@@ -53,8 +55,42 @@ $(function(){
 
    });
 
-} );
+   $('#Nuevo').on('click', function(){
+      $.ajax({
+                url: '{% url 'appInfancia:region_list'%}',
+                type: 'POST',
+                data: {id:3},
+                dataType: 'json'
+                }).done(function (data) {
+                    console.log(data);
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus + ': ' + errorThrown);
+                }).always(function (data) {
+
+                });
+            });
+
+   $('#alert').on('click', function(){
+        {% if form.errors %}
+            var errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+            Swal.fire({
+                title: 'Error!',
+                text: errors,
+                icon: 'error'
+            });
+        {% endif %}
+        });
+        });
 
 </script>
 
 {% endblock javascript %}
+

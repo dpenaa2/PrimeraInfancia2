@@ -25,6 +25,41 @@
                         </a>
 
                     </li>
+                     <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>
+                                Basico
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{% url 'appInfancia:nacionalidad_list' %}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Nacionalidades</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'appInfancia:discapacidad_list' %}" class="nav-link">
+                                    <i class="nav-icon fas fa-chart-pie"></i>
+                                    <p>Discapasidades</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/charts/inline.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Lenguas</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/charts/uplot.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Grupo Etnicos</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="fa fa-map"></i>
@@ -38,13 +73,13 @@
                             <li class="nav-item">
                                 <a href="{% url 'appInfancia:region_list' %}" class="nav-link">
                                     <i class="far fa-circle nav-icon" ></i>
-                                    <p>Reguion</p>
+                                    <p>Reguiones</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'appInfancia:municipio_list' %}"class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Municipio</p>
+                                    <p>Municipios</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -81,41 +116,6 @@
                                 <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Collapsed Sidebar</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-chart-pie"></i>
-                            <p>
-                                Charts
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="pages/charts/chartjs.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>ChartJS</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/charts/flot.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Flot</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/charts/inline.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Inline</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/charts/uplot.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>uPlot</p>
                                 </a>
                             </li>
                         </ul>

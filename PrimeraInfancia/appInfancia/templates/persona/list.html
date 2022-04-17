@@ -1,0 +1,59 @@
+{% extends 'plantilla1.html'%}
+{% block butom %}
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="{% url 'appInfancia:persona_create' %} "
+           class="btn btn-primary"><i class="bi bi-plus"></i> Nuevo</a>
+    </div>
+{% endblock butom %}
+
+{% block thead %}
+<tr>
+    <th>Documento</th>
+    <th>Nombre</th>
+    <th>Ciudad</th>
+    <th>Centro Zonal</th>
+    <th>Direccion</th>
+    <th>Telefono</th>
+    <th>Estado</th>
+    <th>Opciones</th>
+</tr>
+{% endblock thead %}
+
+{% block tbody %}
+{% for persona in object_list %}
+<tr>
+    <td>{{persona.no_documento}}</td>
+    <td>{{persona.nombres}} {{persona.apellidos}}
+    <td>{{persona.cz_mun_codigodane}}</td>
+    <td>{{persona.cz_idcentro_zonal}}</td>
+    <td>{{persona.direccion}}</td>
+    <td>{{persona.telefono}}</td>
+    <td><span class="badge bg-success">{{persona.get_estado_display}}</span></td>
+    <td>
+        <a type="button" class="btn btn-sm btn-outline-success"
+           href="{% url 'appInfancia:persona_edit' persona.idpersona %}">
+            <i class="bi bi-pencil-square"></i>
+        </a>
+        <a type="button" class="btn btn-sm btn-outline-danger"
+           href="{% url 'appInfancia:persona_delete' persona.idpersona %}">
+            <i class="bi bi-trash"></i>
+        </a>
+
+    </td>
+</tr>
+
+
+{% endfor %}
+
+
+<!--Danger theme Modal -->
+<div class="modal fade text-left" id="danger" role="dialog">
+
+</div>
+
+{% block js %}
+
+{% endblock js %}
+
+{% endblock tbody %}
+

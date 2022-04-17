@@ -1,7 +1,7 @@
 {% extends 'plantilla1.html'%}
 {% block butom %}
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end" >
-        <a href="{% url 'appInfancia:region_create' %}"
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="{% url 'appInfancia:nacionalidad_create' %} "
            class="btn btn-primary"><i class="bi bi-plus"></i> Nuevo</a>
     </div>
 {% endblock butom %}
@@ -9,25 +9,25 @@
 {% block thead %}
 <tr>
     <th>Codigo</th>
-    <th>Nombre</th>
-    <th>Estado</th>
+    <th>Pais</th>
+    <th>Nacionalidad</th>
     <th>Opciones</th>
 </tr>
 {% endblock thead %}
 
 {% block tbody %}
-{% for region in object_list %}
+{% for nacionali in object_list %}
 <tr>
-    <td>{{region.idregional}}</td>
-    <td>{{region.nombre}}</td>
-    <td><span class="badge bg-success">{{region.get_estado_display}}</span></td>
+    <td>{{nacionali.idpais}}</td>
+    <td>{{nacionali.Pais}}</td>
+    <td>{{nacionali.nacionalidad}}</td>
     <td>
         <a type="button" class="btn btn-sm btn-outline-success"
-           href="{% url 'appInfancia:region_edit' region.idregional %}">
+           href="{% url 'appInfancia:nacionalidad_edit' nacionali.idpais %}">
             <i class="bi bi-pencil-square"></i>
         </a>
         <a type="button" class="btn btn-sm btn-outline-danger"
-           href="{% url 'appInfancia:region_delete' region.idregional %}">
+           href="{% url 'appInfancia:nacionalidad_delete' nacionali.idpais %}">
             <i class="bi bi-trash"></i>
         </a>
 
@@ -48,3 +48,4 @@
 {% endblock js %}
 
 {% endblock tbody %}
+
