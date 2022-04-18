@@ -76,9 +76,9 @@ class Municipios(models.Model):
 
 
 class CentroZonal(models.Model):
-    idcentro_zonal = models.AutoField(db_column='idCentro_Zonal', primary_key=True)  # Field name made lowercase.
-    nombre = models.CharField(db_column='Nombre', max_length=45, null=False)  # Field name made lowercase.
-    mun_codigodane = models.ForeignKey('Municipios', on_delete=models.DO_NOTHING,
+    idcentro_zonal = models.AutoField(db_column='idcentro_zonal', primary_key=True)  # Field name made lowercase.
+    nombre = models.CharField(db_column='Nombre', max_length=45)  # Field name made lowercase.
+    municipio = models.ForeignKey('Municipios', on_delete=models.DO_NOTHING,
                                        db_column='Mun_CodigoDANE')  # Field name made lowercase.
     ESTADO_ID = (
         ('1', 'Activo'),
@@ -89,7 +89,7 @@ class CentroZonal(models.Model):
     class Meta:
         managed = True
         db_table = 'centro_zonal'
-        unique_together = (('idcentro_zonal', 'mun_codigodane'),)
+        unique_together = (('idcentro_zonal', 'municipio'),)
 
 
 class Grupoetnico(models.Model):

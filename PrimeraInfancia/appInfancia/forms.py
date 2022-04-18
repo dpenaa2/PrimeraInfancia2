@@ -1,6 +1,6 @@
 from django import forms
 from datetime import datetime
-from appInfancia.models import Regionales, Municipios, Nacionalidad, Tipodiscapacidad, Persona
+from appInfancia.models import Regionales, Municipios, Nacionalidad, Tipodiscapacidad, Persona,CentroZonal
 
 
 class RegionForm(forms.ModelForm):
@@ -41,6 +41,38 @@ class MunicipioForm(forms.ModelForm):
                 }
             ),
             'Regional': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+
+            'estado': forms.Select(
+                attrs={
+                    'class': 'form-control'
+                }
+            )
+        }
+
+
+
+class CentroZonalForm(forms.ModelForm):
+    class Meta:
+        model = CentroZonal
+        fields = '__all__'
+        widgets = {
+            'idcentro_zonal': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'id centro zonal'
+                }
+            ),
+            'nombre': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Nombre'
+                }
+            ),
+            'municipio': forms.Select(
                 attrs={
                     'class': 'form-control',
                 }

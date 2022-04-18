@@ -1,6 +1,7 @@
 from django.urls import path
 from .views.Region.views import *
 from .views.Municipio.views import *
+from .views.CentroZonal.views import *
 from .views.Nacionalidad.views import *
 from .views.Discapacidad.views import *
 from .views.Persona.views import *
@@ -18,6 +19,12 @@ urlpatterns = [
     path('Municipio/Create', MunicipioCreateView.as_view(), name='municipio_create'),
     path('Municipio/edit/<int:pk>/', MunicipioUpdateView.as_view(), name='municipio_edit'),
     path('Municipio/delete/<int:pk>/', MunicipioDeleteView.as_view(), name='municipio_delete'),
+
+    # CentroZonal
+    path('CentroZonal/list', CentroZonalListView.as_view(), name='centrozonal_list'),
+    path('CentroZonal/Create', CentroZonalCreateView.as_view(), name='centrozonal_create'),
+    path('CentroZonal/edit/<int:pk>/', CentroZonalUpdateView.as_view(), name='centrozonal_edit'),
+    path('CentroZonal/delete/<int:pk>/', CentroZonalDeleteView.as_view(), name='centrozonal_delete'),
 
     # Nacionalidad
     path('Nacionalidad/list', NacionalidadListView.as_view(), name='nacionalidad_list'),
