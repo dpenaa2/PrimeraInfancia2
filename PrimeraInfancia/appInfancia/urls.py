@@ -2,9 +2,10 @@ from django.urls import path
 from .views.Region.views import *
 from .views.Municipio.views import *
 from .views.CentroZonal.views import *
+from .views.Persona.views import *
 from .views.Nacionalidad.views import *
 from .views.Discapacidad.views import *
-from .views.Persona.views import *
+from .views.GruposEtnicos.views import *
 
 app_name = 'appInfancia'
 urlpatterns = [
@@ -26,6 +27,12 @@ urlpatterns = [
     path('CentroZonal/edit/<int:pk>/', CentroZonalUpdateView.as_view(), name='centrozonal_edit'),
     path('CentroZonal/delete/<int:pk>/', CentroZonalDeleteView.as_view(), name='centrozonal_delete'),
 
+    # Persona
+    path('Persona/list', PersonaListView.as_view(), name='persona_list'),
+    path('Persona/Create', PersonaCreateView.as_view(), name='persona_create'),
+    path('Persona/edit/<int:pk>/', PersonaUpdateView.as_view(), name='persona_edit'),
+    path('Persona/delete/<int:pk>/', PersonaDeleteView.as_view(), name='persona_delete'),
+
     # Nacionalidad
     path('Nacionalidad/list', NacionalidadListView.as_view(), name='nacionalidad_list'),
     path('Nacionalidad/Create', NacionalidadCreateView.as_view(), name='nacionalidad_create'),
@@ -38,10 +45,10 @@ urlpatterns = [
     path('Discapacidad/edit/<int:pk>/', DiscapacidadUpdateView.as_view(), name='discapacidad_edit'),
     path('Discapacidad/delete/<int:pk>/', DiscapacidadDeleteView.as_view(), name='discapacidad_delete'),
 
-    # Persona
-    path('Persona/list', PersonaListView.as_view(), name='persona_list'),
-    path('Persona/Create', PersonaCreateView.as_view(), name='persona_create'),
-    path('Persona/edit/<int:pk>/', PersonaUpdateView.as_view(), name='persona_edit'),
-    path('Persona/delete/<int:pk>/', PersonaDeleteView.as_view(), name='persona_delete')
+    # GrupoEtnico
+    path('GrupoEtnico/list', GruposEtnicosListView.as_view(), name='gruposetnicos_list'),
+    path('GrupoEtnico/Create', GrupoEtnicoCreateView.as_view(), name='gruposetnicos_create'),
+    path('GrupoEtnico/edit/<int:pk>/', GrupoEtnicoUpdateView.as_view(), name='gruposetnicos_edit'),
+    path('GrupoEtnico/delete/<int:pk>/', GrupoEtnicoDeleteView.as_view(), name='gruposetnicos_delete'),
 
 ]

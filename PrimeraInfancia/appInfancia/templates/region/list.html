@@ -1,9 +1,9 @@
 {% extends 'plantilla1.html'%}
 {% block butom %}
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end" >
-        <a href="{% url 'appInfancia:region_create' %}"
-           class="btn btn-primary"><i class="bi bi-plus"></i> Nuevo</a>
-    </div>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href="{% url 'appInfancia:region_create' %}"
+       class="btn btn-primary"><i class="bi bi-plus"></i> Nuevo</a>
+</div>
 {% endblock butom %}
 
 {% block thead %}
@@ -27,7 +27,7 @@
             <i class="bi bi-pencil-square"></i>
         </a>
         <a type="button" class="btn btn-sm btn-outline-danger"
-           href="{% url 'appInfancia:region_delete' region.idregional %}">
+           href="{% url 'appInfancia:region_delete' region.idregional%}">
             <i class="bi bi-trash"></i>
         </a>
 
@@ -38,13 +38,8 @@
 {% endfor %}
 
 
-<!--Danger theme Modal -->
-<div class="modal fade text-left" id="danger" role="dialog">
-
-</div>
-
-{% block js %}
-
-{% endblock js %}
-
 {% endblock tbody %}
+
+
+
+

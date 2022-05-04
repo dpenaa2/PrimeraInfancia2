@@ -5,8 +5,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from appInfancia.models import Regionales
 from appInfancia.forms import RegionForm
 from django.urls import reverse_lazy
-from django.shortcuts import render
-
+from django.contrib.messages.views import SuccessMessageMixin
 
 class RegionListView(ListView):
     models = Regionales
@@ -20,15 +19,17 @@ class RegionListView(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Lista de Regiones'
         context['module'] = 'Regiones'
+        context['list_url'] = reverse_lazy('appInfancia:region_list')
         print(reverse_lazy('appInfancia:region_list'))
         return context
 
 
-class RegionCreateView(CreateView):
+class RegionCreateView(SuccessMessageMixin, CreateView):
     models = Regionales
     form_class = RegionForm
     template_name = 'region/create.html'
     success_url = reverse_lazy('appInfancia:region_list')
+    success_message = "was created successfully"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -38,11 +39,12 @@ class RegionCreateView(CreateView):
         return context
 
 
-class RegionUpdateView(UpdateView):
+class RegionUpdateView(SuccessMessageMixin, UpdateView):
     model = Regionales
     form_class = RegionForm
     template_name = 'region/create.html'
     success_url = reverse_lazy('appInfancia:region_list')
+    success_message = "was Update successfully"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -52,14 +54,14 @@ class RegionUpdateView(UpdateView):
         return context
 
 
-class RegionDeleteView(DeleteView):
+class RegionDeleteView(SuccessMessageMixin,DeleteView):
     model = Regionales
     template_name = 'region/delete.html'
+    success_message = "was Delete successfully"
     success_url = reverse_lazy('appInfancia:region_list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['module'] = 'Regiones'
         context['action'] = 'Eliminar'
-        context['list_url'] = reverse_lazy('appInfancia:region_list')
         return context

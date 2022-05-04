@@ -1,6 +1,4 @@
-
-
-from django.views.generic import ListView,CreateView,UpdateView,DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from appInfancia.models import Nacionalidad
 from appInfancia.forms import NacionalidadForm
 from django.urls import reverse_lazy
@@ -14,12 +12,13 @@ class NacionalidadListView(ListView):
         return Nacionalidad.objects.order_by('idpais')
         return context
 
-    def get_context_data(self,  **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Lista de Nacionalidades'
         context['module'] = 'Nacionalidades'
         print(reverse_lazy('appInfancia:nacionalidad_list'))
         return context
+
 
 class NacionalidadCreateView(CreateView):
     models = Nacionalidad
@@ -27,14 +26,13 @@ class NacionalidadCreateView(CreateView):
     template_name = 'nacionalidad/create.html'
     success_url = reverse_lazy('appInfancia:nacionalidad_list')
 
-
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Crear Nacionalidad'
         context['module'] = 'Nacionalidades'
         context['action'] = 'Guardar'
         return context
+
 
 class NacionalidadUpdateView(UpdateView):
     model = Nacionalidad
@@ -49,6 +47,7 @@ class NacionalidadUpdateView(UpdateView):
         context['action'] = 'Editar'
         return context
 
+
 class NacionalidadDeleteView(DeleteView):
     model = Nacionalidad
     template_name = 'nacionalidad/delete.html'
@@ -60,5 +59,3 @@ class NacionalidadDeleteView(DeleteView):
         context['action'] = 'Eliminar'
         context['list_url'] = reverse_lazy('appInfancia:nacionalidad_list')
         return context
-
-

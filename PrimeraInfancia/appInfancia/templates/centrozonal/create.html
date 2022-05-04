@@ -10,8 +10,18 @@
                 <div class="card-content">
                     <div class="card-body">
                         <form method="post">{% csrf_token %}
-                        {{ form.CentroZonalForm }}
+                            {% if form.errors %}
+                            <div class="alert alert-danger">
+                                <ul>
+                                    {% for field in form %}
+                                    {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
                             <div class="row">
+                                {% endif %}
                                 <div class="form-group col-12">
                                     <div class="form-group">
                                         <label >{{form.idcentrozonal.label}}</label>

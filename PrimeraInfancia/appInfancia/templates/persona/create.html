@@ -10,66 +10,130 @@
                 <div class="card-content">
                     <div class="card-body">
                         <form method="post">{% csrf_token %}
-                            {{ form.PersonaForm }}
-                            <div class="row">
-                                <div class="col-md-6 col-12">
+                            {% if form.errors %}
+                            <div class="alert alert-danger">
+                                <ul>
+                                    {% for field in form %}
+                                    {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                            <div class="row g-3">
+                                <div class="col-md-4 ">
                                     <div class="form-group">
-                                        <label for="first-name-column">First Name</label>
-                                        <input type="text" id="first-name-column" class="form-control"
-                                               placeholder="First Name" name="fname-column">
+                                        <label>{{form.idtipoidentificacio.label}}</label>
+                                        {{ form.idtipoidentificacio }}
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
+                                <div class="col-md-4 ">
                                     <div class="form-group">
-                                        <label for="last-name-column">Last Name</label>
-                                        <input type="text" id="last-name-column" class="form-control"
-                                               placeholder="Last Name" name="lname-column">
+                                        <label>{{form.no_documento.label}}</label>
+                                        {{ form.no_documento }}
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
+                                <div class="col-md-4 ">
                                     <div class="form-group">
-                                        <label for="city-column">City</label>
-                                        <input type="text" id="city-column" class="form-control"
-                                               placeholder="City" name="city-column">
+                                        <label>{{form.nombres.label}}</label>
+                                        {{ form.nombres }}
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
+                                <div class="col-md-4 ">
                                     <div class="form-group">
-                                        <label for="country-floating">Country</label>
-                                        <input type="text" id="country-floating" class="form-control"
-                                               name="country-floating" placeholder="Country">
+                                        <label>{{form.apellidos.label}}</label>
+                                        {{ form.apellidos }}
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="company-column">Company</label>
-                                        <input type="text" id="company-column" class="form-control"
-                                               name="company-column" placeholder="Company">
+                                        <label>{{form.idsexo.label}}</label>
+                                        {{ form.idsexo }}
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
+                                <div class="col-md-4 ">
                                     <div class="form-group">
-                                        <label for="email-id-column">Email</label>
-                                        <input type="email" id="email-id-column" class="form-control"
-                                               name="email-id-column" placeholder="Email">
+                                        <label>{{form.fecha_nacimiento.label}}</label>
+                                        {{ form.fecha_nacimiento }}
                                     </div>
                                 </div>
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>{{form.mun_codigodane.label}}</label>
+                                        {{ form.mun_codigodane }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>{{form.idcentro_zonal.label}}</label>
+                                        {{ form.idcentro_zonal }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>{{form.direccion.label}}</label>
+                                        {{ form.direccion }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>{{form.telefono.label}}</label>
+                                        {{ form.telefono }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>{{form.correo.label}}</label>
+                                        {{ form.correo }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>{{form.idgrupoetnico.label}}</label>
+                                        {{ form.idgrupoetnico }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>{{form.discapacidades.label}}</label>
+                                        {{ form.discapacidades }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>{{form.nacionalidades.label}}</label>
+                                        {{ form.nacionalidades }}
+                                    </div>
+                                </div>
+                                 <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>{{form.lenguas.label}}</label>
+                                        {{ form.lenguas }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <div class="form-group">
+                                        <label >{{form.estado.label}}</label>
+                                        {{ form.estado}}
+                                    </div>
+                                </div>
+                            </div>
 
-
-                                <div class="col-12 d-flex justify-content-end">
-                                    <button type="submit"
-                                            class="btn btn-primary me-1 mb-1">{{action}}
-                                    </button>
-                                    <a type="reset" class="btn btn-light-secondary me-1 mb-1"
-                                       href="{% url 'appInfancia:region_list' %} ">Cerrar
-                                    </a>
-                                </div>
+                            <div class="col-12 d-flex justify-content-end">
+                                <button type="submit"
+                                        class="btn btn-primary me-1 mb-1">{{action}}
+                                </button>
+                                <a type="reset" class="btn btn-light-secondary me-1 mb-1"
+                                   href="{% url 'appInfancia:persona_list' %} ">Cerrar
+                                </a>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </section>
 

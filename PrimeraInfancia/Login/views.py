@@ -7,4 +7,3 @@ class LoginFormView(LoginView):
         context = super().get_cotext_data(**kwargs)
         context['title'] = 'Iniciar Sesión'
         return context
-

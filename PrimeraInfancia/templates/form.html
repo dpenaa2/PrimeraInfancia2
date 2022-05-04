@@ -1,25 +1,27 @@
 {% extends 'body.html'%}
+{% load widget_tweaks %}
+
 {% block head %}
-    {% block head_form %}
+{% block head_form %}
 
-    {% endblock %}
+{% endblock %}
 {% endblock head %}
-{% block content %}
-    <form method="post" action="." enctype="multipart/form-data">
-        <div class="card card-primary">
-            <div class="card-header">
-                <h3 class="card-title">
-                    {% if action == 'add' %}
-                        <i class="fas fa-plus"></i>
-                    {% else %}
-                        <i class="fas fa-edit"></i>
-                    {% endif %}
+{{% block content %}
+<form method="post" action="." enctype="multipart/form-data">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">
+                {% if action == 'add' %}
+                <i class="fas fa-plus"></i>
+                {% else %}
+                <i class="fas fa-edit"></i>
+                {% endif %}
 
-                    {{ title }}
-                </h3>
-            </div>
-            <div class="card-body">
-                {% csrf_token %}
+                {{ title }}
+            </h3>
+        </div>
+        <div class="card-body">
+             {% csrf_token %}
                 <input type="hidden" name="action" value="{{ action }}">
                 {% if form.errors %}
                     <div class="alert alert-danger alert-dismissible">
@@ -40,18 +42,18 @@
                         {{ field|add_class:'form-control'|attr:'autocomplete:off' }}
                     </div>
                 {% endfor %}
-            </div>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary btn-flat">
-                    <i class="fas fa-save"></i> Guardar registro
-                </button>
-                <a href="{{ list_url }}" class="btn btn-danger btn-flat">
-                    <i class="fas fa-times"></i> Cancelar
-                </a>
-            </div>
         </div>
-    </form>
-    <script>
+        <div class="card-footer">
+            <a href="{{ create_url }}" type="submit" class="btn btn-primary btn-flat">
+                <i class="fas fa-save"></i> Guardar registro
+            </a>
+            <a href="{{ list_url }}" class="btn btn-danger btn-flat">
+                <i class="fas fa-times"></i> Cancelar
+            </a>
+        </div>
+    </div>
+</form>
+<script>
         {% if form.errors %}
             var errors = '';
             {% for field in form %}
@@ -76,5 +78,6 @@
                 location.href = '{{ list_url }}';
             });
         });
-    </script>
+
+</script>
 {% endblock %}

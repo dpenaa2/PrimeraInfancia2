@@ -1,33 +1,48 @@
-{% extends 'body.html'%}
-{% block Content%}
-<div class="modal-dialog modal-centered modal-dialog-scrollable modal-sm"
-     role="document">
-    <div class="modal-content">
-        <div class="modal-header bg-danger">
-            <h5 class="modal-title white" id="myModalLabel120">
-                Eliminar
-            </h5>
-            <button type="button" class="close"
-                    data-bs-dismiss="modal" aria-label="Close">
-                <i data-feather="x"></i>
-            </button>
-        </div>
-        <form method="post">
-            {% csrf_token %}
-            <div class="modal-body">
-                ¿Esta seguro de eliminar el registro {{ object.nombre}} ?
-            </div>
-            <div class="modal-footer">
-                <div class="col-12 d-flex justify-content-end">
-                    <button type="submit"
-                            class="btn btn-primary me-1 mb-1">{{action}}
-                    </button>
-                    <a type="reset" class="btn btn-light-secondary me-1 mb-1"
-                       href="{% url 'appInfancia:region_list' %} ">Cerrar
-                    </a>
-                </div>
-            </div>
-        </form>
-    </div>
+{% extends 'plantilla1.html'%}
+{% block butom %}
+<form method="post">{% csrf_token %}
+<div class="col-12 d-flex justify-content-end">
+    <button type="submit" onclick="Eliminar()"
+            class="btn btn-primary me-1 mb-1">Eliminar
+    </button>
+    <a type="reset" class="btn btn-light-secondary me-1 mb-1"
+       href="{% url 'appInfancia:region_list' %} ">Cerrar
+    </a>
 </div>
-{% endblock Content%}
+</form>
+{% endblock butom %}
+
+{% block thead %}
+<tr>
+    <th>Codigo</th>
+    <th>Nombre</th>
+    <th>Estado</th>
+</tr>
+{% endblock thead %}
+
+{% block tbody %}
+<tr>
+    <td>{{object.idregional}}</td>
+    <td>{{ object.nombre}}</td>
+    <td><span class="badge bg-success">{{object.get_estado_display}}</span></td>
+</tr>
+{% endblock tbody %}
+{% block javascript %}
+
+<script type="application/javascript">
+     function Eliminar(){
+        Swal.fire(
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        )
+    }
+
+</script>
+{% endblock javascript %}
+
+

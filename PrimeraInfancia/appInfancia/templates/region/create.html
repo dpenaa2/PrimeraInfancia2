@@ -1,6 +1,5 @@
 {% extends 'body.html'%}
 {% block Content%}
-
 <section id="multiple-column-form">
     <div class="row match-height">
         <div class="col-12">
@@ -12,7 +11,7 @@
                     <div class="card-body">
                         <form method="post">{% csrf_token %}
                             {% if form.errors %}
-                            <div class="alert alert-danger"><i class="bi bi-file-excel"></i> Ha ocurrido un error.
+                            <div class="alert alert-danger">
                                 <ul>
                                     {% for field in form %}
                                     {% for error in field.errors %}
@@ -37,7 +36,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 d-flex justify-content-end">
-                                    <button type="submit"
+                                    <button type="submit" onclick="Nuevo()"
                                             class="btn btn-primary me-1 mb-1">{{action}}
                                     </button>
                                     <a type="reset" class="btn btn-light-secondary me-1 mb-1"
@@ -46,25 +45,6 @@
                                 </div>
                             </div>
                         </form>
-                          <script>
-        {% if form.errors %}
-            var errors = '';
-            {% for field in form %}
-                {% for error in field.errors %}
-                    errors += '{{ error }}\n';
-                {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
-                errors += '{{ error }}\n';
-            {% endfor %}
-            Swal.fire({
-                title: 'Error!',
-                text: errors,
-                icon: 'error'
-            });
-        {% endif %}
-</script>
-
                     </div>
                 </div>
             </div>
@@ -73,3 +53,16 @@
 </section>
 
 {% endblock Content%}
+    {% block javascript %}
+
+    <script type="application/javascript">
+    function Nuevo(){
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+        )
+    }
+
+    </script>
+    {% endblock javascript %}

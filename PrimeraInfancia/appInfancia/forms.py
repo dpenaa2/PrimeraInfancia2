@@ -1,6 +1,7 @@
+from appInfancia.models import Regionales, Municipios, Nacionalidad, Tipodiscapacidad, Persona, CentroZonal, Lengua, GruposEtnicos
 from django import forms
 from datetime import datetime
-from appInfancia.models import Regionales, Municipios, Nacionalidad, Tipodiscapacidad, Persona,CentroZonal
+from django.forms.widgets import NumberInput
 
 
 class RegionForm(forms.ModelForm):
@@ -54,7 +55,6 @@ class MunicipioForm(forms.ModelForm):
         }
 
 
-
 class CentroZonalForm(forms.ModelForm):
     class Meta:
         model = CentroZonal
@@ -74,7 +74,7 @@ class CentroZonalForm(forms.ModelForm):
             ),
             'municipio': forms.Select(
                 attrs={
-                    'class': 'form-control',
+                    'class': 'form-control'
                 }
             ),
 
@@ -139,93 +139,111 @@ class PersonaForm(forms.ModelForm):
     class Meta:
         model = Persona
         fields = '__all__'
+
         widgets = {
+
             'idtipoidentificacio': forms.Select(
                 attrs={
-                    'class': 'form-control',
-                }
-            ),
-            'no_documento': forms.TextInput(
-                attrs={
-                    'placeholder': 'Ingrese su identificación',
+                    'class': 'form-control'
                 }
             ),
             'nombres': forms.TextInput(
                 attrs={
-                    'placeholder': 'Ingrese sus nombres',
+                    'class': 'form-control',
+                    'placeholder': 'Nombres'
+                }
+            ),
+            'no_documento': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'No Documento'
                 }
             ),
             'apellidos': forms.TextInput(
                 attrs={
-                    'placeholder': 'Ingrese sus apellidos',
-                }
-            ),
-
-            'sexo': forms.Select(
-                attrs={
                     'class': 'form-control',
+                    'placeholder': 'Apellidos'
                 }
             ),
-            'fecha_nacimiento': forms.DateInput(format='%Y-%m-%d',
-                                                attrs={
-                                                    'value': datetime.now().strftime('%Y-%m-%d'),
-                                                }
-                                                ),
-            'idnacionalidad': forms.Select(
+            'idsexo': forms.Select(
                 attrs={
-                    'class': 'form-control',
+                    'title': 'Sexo',
+                    'class': 'form-control'
                 }
             ),
+            'fecha_nacimiento': forms.SelectDateWidget(
+                attrs={
+                    'title': 'Municipio',
+                    'class': 'form-control ',
+                }, years=range(1900, 2090)),
 
-            'cz_idcentro_zonal': forms.Select(
+            'idcentro_zonal': forms.Select(
                 attrs={
-                    'class': 'form-control',
-                }
-            ),
-
-            'cz_mun_codigodane': forms.Select(
-                attrs={
+                    'title': 'Centro Zonal',
                     'class': 'form-control',
                 }
             ),
 
+            'mun_codigodane': forms.Select(
+                attrs={
+                    'title': 'Municipio',
+                    'class': 'form-control',
+                }
+            ),
             'direccion': forms.TextInput(
                 attrs={
-                    'placeholder': 'Ingrese su direccion',
-                }
-            ),
-
-            'ge_idgrupoetnico': forms.Select(
-                attrs={
                     'class': 'form-control',
+                    'placeholder': 'Direccion'
                 }
             ),
-
-            'discapacidad': forms.Select(
-                attrs={
-                    'class': 'form-control',
-                }
-            ),
-
-            'Lenguas': forms.Select(
-                attrs={
-                    'class': 'form-control',
-                }
-            ),
-
             'telefono': forms.TextInput(
                 attrs={
-                    'placeholder': 'Ingrese su telefono',
+                    'class': 'form-control',
+                    'placeholder': 'Telefono'
                 }
             ),
             'correo': forms.TextInput(
                 attrs={
-                    'placeholder': 'Ingrese su correo',
+                    'class': 'form-control',
+                    'placeholder': 'Correo'
                 }
+            ),
+            'idgrupoetnico': forms.Select(
+
+                attrs={
+                    'title': 'Grupo Etnico',
+                    'class': 'form-control',
+                }
+
+            ),
+            'nacionalidades': forms.CheckboxSelectMultiple(
+
+            ),
+            'discapacidades': forms.CheckboxSelectMultiple(
+
+            ),
+            'lenguas': forms.CheckboxSelectMultiple(
+
             ),
             'estado': forms.Select(
                 attrs={
                     'class': 'form-control'
                 }
             )
+
+        }
+
+
+class GruposEtnicosForm(forms.ModelForm):
+    class Meta:
+        model = GruposEtnicos
+        fields = '__all__'
+        widgets = {
+
+            'nombre': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Nombre'
+                }
+            ),
         }
