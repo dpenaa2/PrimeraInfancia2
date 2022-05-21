@@ -1,0 +1,38 @@
+{% extends 'body.html'%}
+{% block Content%}
+<section id="multiple-column-form">
+    <div class="row match-height">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">{{title}}</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <form method="post">{% csrf_token %}
+                            {{ moduloForm }}
+                            {{ sectionForm }}
+                            {{ preguntaForm  }}
+                            {{ respuestasForm  }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock Content%}
+    {% block javascript %}
+
+    <script type="application/javascript">
+    function Nuevo(){
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+        )
+    }
+
+    </script>
+    {% endblock javascript %}

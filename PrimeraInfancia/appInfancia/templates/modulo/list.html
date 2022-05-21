@@ -1,0 +1,52 @@
+{% extends 'plantilla1.html'%}
+
+{% block butom %}
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="{% url 'appInfancia:modulo_create' %} "
+           class="btn btn-primary"><i class="bi bi-plus"></i> Nuevo</a>
+    </div>
+{% endblock butom %}
+
+{% block thead %}
+<tr>
+    <th>Codigo</th>
+    <th>Nombre</th>
+    <th>Estado</th>
+    <th>Opciones</th>
+</tr>
+{% endblock thead %}
+
+{% block tbody %}
+{% for modulo in object_list %}
+<tr>
+    <td>{{modulo.idtipo_modulo}}</td>
+    <td>{{modulo.nombre}}</td>
+    <td><span class="badge bg-success">{{modulo.get_estado_display}}</span></td>
+    <td>
+        <a type="button" class="btn btn-sm btn-outline-success"
+           href="{% url 'appInfancia:modulo_edit' modulo.idtipo_modulo %}">
+            <i class="bi bi-pencil-square"></i>
+        </a>
+        <a type="button" class="btn btn-sm btn-outline-danger"
+           href="{% url 'appInfancia:modulo_delete' modulo.idtipo_modulo %}">
+            <i class="bi bi-trash"></i>
+        </a>
+
+    </td>
+</tr>
+
+
+{% endfor %}
+
+
+<!--Danger theme Modal -->
+<div class="modal fade text-left" id="danger" role="dialog">
+
+</div>
+
+{% block js %}
+
+{% endblock js %}
+
+{% endblock tbody %}
+

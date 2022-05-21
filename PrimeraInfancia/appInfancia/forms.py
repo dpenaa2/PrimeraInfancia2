@@ -1,4 +1,5 @@
-from appInfancia.models import Regionales, Municipios, Nacionalidad, Tipodiscapacidad, Persona, CentroZonal, Lengua, GruposEtnicos
+from appInfancia.models import Regionales, Municipios, Nacionalidad, Tipodiscapacidad, Persona, CentroZonal, Lengua, \
+    GruposEtnicos, TipoModulo, Seccion, Catalagopregunta, Catalogorespuestas
 from django import forms
 from datetime import datetime
 from django.forms.widgets import NumberInput
@@ -246,4 +247,115 @@ class GruposEtnicosForm(forms.ModelForm):
                     'placeholder': 'Nombre'
                 }
             ),
+        }
+
+
+class TipoModuloForm(forms.ModelForm):
+    class Meta:
+        model = TipoModulo
+        fields = ['nombre']
+
+        widgets = {
+            'nombre': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Nombre'
+                }
+            ),
+        }
+
+
+class SeccionForm(forms.ModelForm):
+    class Meta:
+        model = Seccion
+        fields = '__all__'
+        widgets = {
+            'nombre_seccion': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Nombre'
+                }
+            ),
+
+            'tiposeccion': forms.Select(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+            'idtipo_modulo': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                }
+            )
+        }
+
+
+class CatalagopreguntaForm(forms.ModelForm):
+    class Meta:
+        model = Catalagopregunta
+        fields = '__all__'
+        widgets = {
+
+            'enunciado': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Enunciado'
+                }
+            ),
+            'codigopregunta': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Codigo'
+                }
+            ),
+            'sec_idseccion': forms.Select(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+
+            'sec_idtipo_modulo': forms.Select(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+
+        }
+
+
+class CatalogorespuestasForm(forms.ModelForm):
+    class Meta:
+        model = Catalogorespuestas
+        fields = '__all__'
+        widgets = {
+
+            'tipo_respuestas': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Respuestas'
+                }
+            ),
+            'codigo_respuestas': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Codigo'
+                }
+            ),
+            'catapreg_idpregunta': forms.Select(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+            'idseccion': forms.Select(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+
+            'sec_idtipo_modulo': forms.Select(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+
         }

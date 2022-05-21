@@ -6,6 +6,7 @@ from .views.Persona.views import *
 from .views.Nacionalidad.views import *
 from .views.Discapacidad.views import *
 from .views.GruposEtnicos.views import *
+from .views.Modulo.views import *
 
 app_name = 'appInfancia'
 urlpatterns = [
@@ -50,5 +51,11 @@ urlpatterns = [
     path('GrupoEtnico/Create', GrupoEtnicoCreateView.as_view(), name='gruposetnicos_create'),
     path('GrupoEtnico/edit/<int:pk>/', GrupoEtnicoUpdateView.as_view(), name='gruposetnicos_edit'),
     path('GrupoEtnico/delete/<int:pk>/', GrupoEtnicoDeleteView.as_view(), name='gruposetnicos_delete'),
+
+    # Modulos
+    path('Modulo/list', TipoModuloListView.as_view(), name='modulo_list'),
+    path('Modulo/Create', TipoModuloCreateView.as_view(), name='modulo_create'),
+    path('Modulo/edit/<int:pk>/', GrupoEtnicoUpdateView.as_view(), name='modulo_edit'),
+    path('Modulo/delete/<int:pk>/', ModuloDeleteView.as_view(), name='modulo_delete'),
 
 ]

@@ -261,44 +261,128 @@ class Funcionario(models.Model):
         instance.funcionario.save(),
 
 
-class Alertas(models.Model):
-    idalertas = models.AutoField(db_column='idAlertas', primary_key=True)
-    nombre_alerta = models.CharField(db_column='NombreAlerta', max_length=30, blank=True, null=True)
-    Gradoa_lerta = models.IntegerField(db_column='GradoAlerta', blank=True, null=True)
+class TipoModulo(models.Model):
+    idtipo_modulo = models.AutoField(db_column='idTipo_Modulo', primary_key=True)
+    nombre = models.CharField(db_column='Nombre', max_length=45, blank=True, null=True)
+    ESTADO_ID = (
+        ('1', 'Activo'),
+        ('2', 'Inactivo'),
+    )
+    estado = models.CharField(max_length=1, choices=ESTADO_ID, default=1)
 
     def __str__(self):
-        return self.nombre_alerta
+        return str(self.nombre)
 
     class Meta:
-        managed = False
-        db_table = 'Alertas',
+        managed = True
+        db_table = 'nombre'
 
 
-class Bitacora(models.Model):
-    idbitacora = models.AutoField(db_column='idBitacora', primary_key=True)
-    fechacreacionr = models.DateTimeField(db_column='FechaCreacion', blank=True, null=True)
-    usuario_crea = models.IntegerField(db_column='UsuarioCrea', blank=True, null=True)
-    observacion = models.CharField(db_column='Observacion', max_length=500, blank=True, null=True)
-    persona_idpersona = models.ForeignKey('Persona', models.DO_NOTHING, db_column='Persona_idPersona')
-    discapacidades = models.ManyToManyField(Alertas,
-                                            through='BitacoraAlertas',
-                                            through_fields=('idbitacora', 'idalertas'),
-                                            )
+class Seccion(models.Model):
+    idseccion = models.AutoField(db_column='idSeccion', primary_key=True)
+    nombre_seccion = models.CharField(db_column='NombreSeccion', max_length=45, blank=True,
+                                      null=True)
+    SECCION_ID = (
+        ('1', 'Principal'),
+        ('2', 'Secundaria'),
+    )
+    tiposeccion = models.CharField(max_length=1, choices=SECCION_ID, default=1)
+    idtipo_modulo = models.ForeignKey(TipoModulo, on_delete=models.DO_NOTHING,
+                                      db_column='idtipo_modulo')
+    ESTADO_ID = (
+        ('1', 'Activo'),
+        ('2', 'Inactivo'),
+    )
+    estado = models.CharField(max_length=1, choices=ESTADO_ID, default=1)
 
     def __str__(self):
-        return self.idbitacora
+        return str(self.nombre_seccion)
 
     class Meta:
-        managed = False
-        db_table = 'Bitacora'
-        unique_together = (('idbitacora', 'persona_idpersona'),)
+        managed = True
+        db_table = 'seccion'
+        unique_together = (('idseccion', 'nombre_seccion'),)
 
 
-class BitacoraAlertas(models.Model):
-    idbitacora = models.ForeignKey(Bitacora, models.DO_NOTHING, db_column='Bita_idBitacora')
-    idalertas = models.ForeignKey(Alertas, models.DO_NOTHING, db_column='Alert_idAlertas')
+class Catalagopregunta(models.Model):
+    idpregunta = models.AutoField(db_column='idPregunta', primary_key=True)
+    enunciado = models.CharField(db_column='Enunciado', max_length=250, blank=True,
+                                 null=True)
+    codigopregunta = models.IntegerField(db_column='CodigoPregunta', blank=True,
+                                         null=True)
+    sec_idseccion = models.ForeignKey(Seccion, on_delete=models.DO_NOTHING,
+                                      db_column='Sec_idSeccion')
+    sec_idtipo_modulo = models.ForeignKey(TipoModulo, on_delete=models.DO_NOTHING,
+                                          db_column='Sec_idtipo_modulo')
+
+    def __str__(self):
+        return str(self.enunciado)
 
     class Meta:
-        managed = False
-        db_table = 'bitacora_has_alertas'
-        unique_together = (('idbitacora', 'idalertas'),)
+        managed = True
+        db_table = 'catalagopregunta'
+        unique_together = (('idpregunta', 'sec_idseccion', 'sec_idtipo_modulo'),)
+
+
+class Catalogorespuestas(models.Model):
+    idcatalogorespuestas = models.AutoField(db_column='idCatalogoRespuestas',
+                                            primary_key=True)
+    tipo_respuestas = models.CharField(db_column='TipoRespuestas', max_length=45, blank=True,
+                                       null=True)
+    codigo_respuestas = models.IntegerField(db_column='CodigoRespuestas', blank=True,
+                                            null=True)
+    catapreg_idpregunta = models.ForeignKey(Catalagopregunta, on_delete=models.DO_NOTHING,
+                                            db_column='CataPreg_idPregunta')
+    idseccion = models.ForeignKey(Seccion, on_delete=models.DO_NOTHING,
+                                  db_column='idseccion')
+    sec_idtipo_modulo = models.ForeignKey(TipoModulo, on_delete=models.DO_NOTHING,
+                                          db_column='sec_idtipo_modulo')
+
+    def __str__(self):
+        return str(self.tipo_respuestas)
+
+    class Meta:
+        managed = True
+        db_table = 'catalogorespuestas'
+        unique_together = (('idcatalogorespuestas', 'catapreg_idpregunta', 'idseccion',
+                            'sec_idtipo_modulo'),)
+
+
+class Ficha(models.Model):
+    idficha = models.AutoField(db_column='idficha', primary_key=True)
+    fecha = models.DateField(db_column='Fecha', auto_now_add=True)
+    idpersona = models.ForeignKey(Persona, models.DO_NOTHING,
+                                  db_column='idpersona')
+    respuestas = models.ManyToManyField(Catalogorespuestas,
+                                        through='FichaRespuestas',
+                                        through_fields=('idFicha', 'idrespuestas', 'idpregunta', 'idseccion',
+                                                        'idtipo_modulo'), )
+
+    def __str__(self):
+        return self.idficha
+
+    class Meta:
+        managed = True
+        db_table = 'ficha'
+
+
+class FichaRespuestas(models.Model):
+    idFicha = models.ForeignKey(Ficha, on_delete=models.CASCADE, db_column='idFicha')
+
+    idrespuestas = models.ForeignKey(Catalogorespuestas, on_delete=models.DO_NOTHING,
+                                     db_column='idrespuestas')
+    idpregunta = models.ForeignKey(Catalagopregunta, on_delete=models.DO_NOTHING,
+                                   db_column='idpregunta')
+    idseccion = models.ForeignKey(Seccion, on_delete=models.DO_NOTHING,
+                                  db_column='idseccion')
+    idtipo_modulo = models.ForeignKey(TipoModulo, on_delete=models.DO_NOTHING,
+                                      db_column='idtipo_modulo')
+
+    def __str__(self):
+        return self.idFicha
+
+    class Meta:
+        managed = True
+        db_table = 'FichaRespuestas'
+        unique_together = (('idFicha', 'idrespuestas', 'idpregunta',
+                            'idseccion', 'idtipo_modulo'),)
