@@ -24,24 +24,18 @@
                                 {% endif %}
                                 <div class="form-group col-12">
                                     <div class="form-group">
-                                        <label>{{form.nombre}}</label>
-                                        {{form.nombre}}
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-12">
-                                    <div class="form-group">
-                                        <label>{{form.estado.label}}</label>
-                                        {{ form.estado}}
+                                        {{ form.management_form }}
+                                        <ol>
+                                            {% for rta in form%}
+                                            <li>{{rta}}</li>
+                                            {% endfor %}
+                                        </ol>
                                     </div>
                                 </div>
                                 <div class="col-12 d-flex justify-content-end">
-                                    <button type="submit"
-                                            class="btn btn-primary me-1 mb-1">{{action}}
+                                    <button type="submit" onclick="Nuevo()"
+                                            class="btn btn-primary me-1 mb-1">Agregar
                                     </button>
-                                    <a type="reset" class="btn btn-light-secondary me-1 mb-1"
-                                       href="{% url 'appInfancia:discapacidad_list' %} ">Cerrar
-                                    </a>
                                 </div>
                             </div>
                         </form>
@@ -52,3 +46,22 @@
     </div>
 </section>
 {% endblock Content%}
+{% block javascript %}
+
+<script type="application/javascript">
+    function Nuevo(){
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+        )
+    }
+
+
+
+
+
+
+
+</script>
+{% endblock javascript %}

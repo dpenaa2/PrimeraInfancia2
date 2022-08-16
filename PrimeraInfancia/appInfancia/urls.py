@@ -7,6 +7,9 @@ from .views.Nacionalidad.views import *
 from .views.Discapacidad.views import *
 from .views.GruposEtnicos.views import *
 from .views.Modulo.views import *
+from .views.Preguntas.views import *
+from .views.Lengua.views import *
+from .views.Seccion.views import *
 
 app_name = 'appInfancia'
 urlpatterns = [
@@ -52,10 +55,21 @@ urlpatterns = [
     path('GrupoEtnico/edit/<int:pk>/', GrupoEtnicoUpdateView.as_view(), name='gruposetnicos_edit'),
     path('GrupoEtnico/delete/<int:pk>/', GrupoEtnicoDeleteView.as_view(), name='gruposetnicos_delete'),
 
-    # Modulos
-    path('Modulo/list', TipoModuloListView.as_view(), name='modulo_list'),
-    path('Modulo/Create', TipoModuloCreateView.as_view(), name='modulo_create'),
-    path('Modulo/edit/<int:pk>/', GrupoEtnicoUpdateView.as_view(), name='modulo_edit'),
-    path('Modulo/delete/<int:pk>/', ModuloDeleteView.as_view(), name='modulo_delete'),
+    # Seccion
+    path('Seccion/list', SeccionListView.as_view(), name='seccion_list'),
+    path('Seccion/Create', SeccionCreateView.as_view(), name='seccion_create'),
+    path('Seccion/edit/<int:pk>/', SeccionUpdateView.as_view(), name='seccion_edit'),
+    path('Seccion/delete/<int:pk>/', SeccionDeleteView.as_view(), name='seccion_delete'),
 
+    # Preguntas
+    #path('Pregunta/list', PreguntaListView.as_view(), name='pregunta_list'),
+    path('Pregunta/Create', FormsetRespuesta.as_view(), name='pregunta_create'),
+    #path('Pregunta/edit/<int:pk>/', PreguntaUpdateView.as_view(), name='pregunta_edit'),
+    #path('Pregunta/delete/<int:pk>/', PreguntaDeleteView.as_view(), name='pregunta_delete'),
+
+    # Lenguas
+    path('Lengua/list', LenguaListView.as_view(), name='lengua_list'),
+    path('Lengua/Create', LenguaCreateView.as_view(), name='lengua_create'),
+    path('Lengua/edit/<int:pk>/', LenguaUpdateView.as_view(), name='lengua_edit'),
+    path('Lengua/delete/<int:pk>/', LenguaDeleteView.as_view(), name='lengua_delete'),
 ]

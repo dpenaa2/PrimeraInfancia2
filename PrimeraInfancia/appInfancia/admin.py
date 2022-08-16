@@ -11,6 +11,11 @@ admin.site.register(Tipoidentificacio)
 admin.site.register(Lengua)
 admin.site.register(Tipodiscapacidad)
 admin.site.register(Persona)
+admin.site.register(TipoModulo)
+admin.site.register(Seccion)
+admin.site.register(Catalagopregunta)
+admin.site.register(Catalogorespuestas)
+
 
 
 

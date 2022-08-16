@@ -101,33 +101,34 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 ">
+
                                     <div class="form-group">
                                         <label>{{form.nacionalidades.label}}</label>
                                         {{ form.nacionalidades }}
                                     </div>
                                 </div>
-                                 <div class="col-md-4 ">
+                                <div class="col-md-3 ">
                                     <div class="form-group">
-                                        <label>{{form.lenguas.label}}</label>
-                                        {{ form.lenguas }}
+                                            <label>{{form.lenguas.label}}</label>
+                                            {{ form.lenguas }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                            <label>{{form.estado.label}}</label>
+                                            {{ form.estado}}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <div class="form-group">
-                                        <label >{{form.estado.label}}</label>
-                                        {{ form.estado}}
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="col-12 d-flex justify-content-end">
-                                <button type="submit"
-                                        class="btn btn-primary me-1 mb-1">{{action}}
-                                </button>
-                                <a type="reset" class="btn btn-light-secondary me-1 mb-1"
-                                   href="{% url 'appInfancia:persona_list' %} ">Cerrar
-                                </a>
-                            </div>
+                                <div class="col-12 d-flex justify-content-end">
+                                    <button type="submit"
+                                            class="btn btn-primary me-1 mb-1">{{action}}
+                                    </button>
+                                    <a type="reset" class="btn btn-light-secondary me-1 mb-1"
+                                       href="{% url 'appInfancia:persona_list' %} ">Cerrar
+                                    </a>
+                                </div>
                         </form>
                     </div>
                 </div>
@@ -137,4 +138,13 @@
     </div>
 </section>
 
+{% block javascript %}
+<script type="text/javascript">
+      $(function () {
+          $('#datetimepicker11').datetimepicker({
+              daysOfWeekDisabled: [0, 6]
+          });
+      });
+   </script>
+{% endblock javascript %}
 {% endblock Content%}

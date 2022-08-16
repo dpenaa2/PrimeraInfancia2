@@ -3,7 +3,7 @@ from appInfancia.models import Regionales, Municipios, Nacionalidad, Tipodiscapa
 from django import forms
 from datetime import datetime
 from django.forms.widgets import NumberInput
-
+from django.forms.models import inlineformset_factory
 
 class RegionForm(forms.ModelForm):
     class Meta:
@@ -176,7 +176,7 @@ class PersonaForm(forms.ModelForm):
                 attrs={
                     'title': 'Municipio',
                     'class': 'form-control ',
-                }, years=range(1900, 2090)),
+                }, years=range(1980, 2028)),
 
             'idcentro_zonal': forms.Select(
                 attrs={
@@ -234,6 +234,25 @@ class PersonaForm(forms.ModelForm):
 
         }
 
+class LenguaForm(forms.ModelForm):
+    class Meta:
+        model = Lengua
+        fields = '__all__'
+        widgets = {
+
+            'nombre': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Nombre'
+                }
+            ),
+            'estado': forms.Select(
+                attrs={
+                    'class': 'form-control'
+                }
+            )
+        }
+
 
 class GruposEtnicosForm(forms.ModelForm):
     class Meta:
@@ -252,23 +271,25 @@ class GruposEtnicosForm(forms.ModelForm):
 
 class TipoModuloForm(forms.ModelForm):
     class Meta:
-        model = TipoModulo
-        fields = ['nombre']
+        class Meta:
+            model = TipoModulo
+            fields = ['nombre'],
 
-        widgets = {
-            'nombre': forms.TextInput(
-                attrs={
-                    'class': 'form-control',
-                    'placeholder': 'Nombre'
-                }
-            ),
-        }
+            widgets = {
+                'nombre': forms.TextInput(
+                    attrs={
+                        'class': 'form-control',
+                        'placeholder': 'Nombre'
+                    }
+                ),
+            }
 
 
 class SeccionForm(forms.ModelForm):
     class Meta:
         model = Seccion
         fields = '__all__'
+
         widgets = {
             'nombre_seccion': forms.TextInput(
                 attrs={
@@ -276,13 +297,19 @@ class SeccionForm(forms.ModelForm):
                     'placeholder': 'Nombre'
                 }
             ),
-
-            'tiposeccion': forms.Select(
+            'codigo_seccion': forms.TextInput(
                 attrs={
-                    'class': 'form-control'
+                    'class': 'form-control',
+                    'placeholder': 'Codigo'
                 }
             ),
+
             'idtipo_modulo': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'estado': forms.Select(
                 attrs={
                     'class': 'form-control',
                 }
@@ -323,16 +350,16 @@ class CatalagopreguntaForm(forms.ModelForm):
         }
 
 
-class CatalogorespuestasForm(forms.ModelForm):
+class RespuestasForm(forms.ModelForm):
     class Meta:
         model = Catalogorespuestas
         fields = '__all__'
         widgets = {
 
-            'tipo_respuestas': forms.TextInput(
+            'respuesta': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Respuestas'
+                    'placeholder': 'Respuesta'
                 }
             ),
             'codigo_respuestas': forms.TextInput(
@@ -346,16 +373,8 @@ class CatalogorespuestasForm(forms.ModelForm):
                     'class': 'form-control'
                 }
             ),
-            'idseccion': forms.Select(
-                attrs={
-                    'class': 'form-control'
-                }
-            ),
-
-            'sec_idtipo_modulo': forms.Select(
-                attrs={
-                    'class': 'form-control'
-                }
-            ),
 
         }
+
+
+

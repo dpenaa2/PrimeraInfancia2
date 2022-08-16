@@ -22,7 +22,7 @@ class Tipodiscapacidad(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'Tipodiscapacidad'
+        db_table = 'Tipo_discapacidad'
 
 
 class Nacionalidad(models.Model):
@@ -107,7 +107,7 @@ class GruposEtnicos(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'GruposEtnicos'
+        db_table = 'Grupos_Etnicos'
         unique_together = (('idgrupoetnico', 'nombre'),)
 
 
@@ -132,13 +132,18 @@ class Tipoidentificacio(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'tipoidentificacio'
+        db_table = 'tipo_identificacio'
 
 
 class Lengua(models.Model):
     idlengua = models.AutoField(db_column='idLengua', primary_key=True)
     nombre = models.CharField(db_column='Nombre', max_length=45, blank=True, null=True, unique=True)
     otralengua = models.CharField(db_column='OtraLengua', max_length=45, blank=True, null=True)
+    ESTADO_ID = (
+        ('1', 'Activo'),
+        ('2', 'Inactivo'),
+    )
+    estado = models.CharField(max_length=1, choices=ESTADO_ID, default=1)
 
     def __str__(self):
         return self.nombre
@@ -271,23 +276,24 @@ class TipoModulo(models.Model):
     estado = models.CharField(max_length=1, choices=ESTADO_ID, default=1)
 
     def __str__(self):
-        return str(self.nombre)
+        return self.nombre
 
     class Meta:
         managed = True
-        db_table = 'nombre'
+        db_table = 'tipo_Modulo'
 
 
 class Seccion(models.Model):
     idseccion = models.AutoField(db_column='idSeccion', primary_key=True)
+    codigo_seccion = models.CharField(db_column='codigo_seccion', max_length=4, blank=True,
+                                      null=True)
     nombre_seccion = models.CharField(db_column='NombreSeccion', max_length=45, blank=True,
                                       null=True)
     SECCION_ID = (
         ('1', 'Principal'),
         ('2', 'Secundaria'),
     )
-    tiposeccion = models.CharField(max_length=1, choices=SECCION_ID, default=1)
-    idtipo_modulo = models.ForeignKey(TipoModulo, on_delete=models.DO_NOTHING,
+    idtipo_modulo = models.ForeignKey(TipoModulo,  on_delete=models.CASCADE,
                                       db_column='idtipo_modulo')
     ESTADO_ID = (
         ('1', 'Activo'),
@@ -301,6 +307,8 @@ class Seccion(models.Model):
     class Meta:
         managed = True
         db_table = 'seccion'
+        verbose_name = "seccion"
+        verbose_name_plural = "secciones"
         unique_together = (('idseccion', 'nombre_seccion'),)
 
 
@@ -320,32 +328,31 @@ class Catalagopregunta(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'catalagopregunta'
+        db_table = 'catalago_' \
+                   'pregunta'
+        verbose_name = "respuesta"
+        verbose_name_plural = "respuestas"
         unique_together = (('idpregunta', 'sec_idseccion', 'sec_idtipo_modulo'),)
 
 
 class Catalogorespuestas(models.Model):
     idcatalogorespuestas = models.AutoField(db_column='idCatalogoRespuestas',
                                             primary_key=True)
-    tipo_respuestas = models.CharField(db_column='TipoRespuestas', max_length=45, blank=True,
+    respuesta = models.CharField(db_column='Respuesta', max_length=45, blank=True,
                                        null=True)
-    codigo_respuestas = models.IntegerField(db_column='CodigoRespuestas', blank=True,
-                                            null=True)
     catapreg_idpregunta = models.ForeignKey(Catalagopregunta, on_delete=models.DO_NOTHING,
                                             db_column='CataPreg_idPregunta')
-    idseccion = models.ForeignKey(Seccion, on_delete=models.DO_NOTHING,
-                                  db_column='idseccion')
-    sec_idtipo_modulo = models.ForeignKey(TipoModulo, on_delete=models.DO_NOTHING,
-                                          db_column='sec_idtipo_modulo')
+
 
     def __str__(self):
-        return str(self.tipo_respuestas)
+        return str(self.respuesta)
 
     class Meta:
         managed = True
-        db_table = 'catalogorespuestas'
-        unique_together = (('idcatalogorespuestas', 'catapreg_idpregunta', 'idseccion',
-                            'sec_idtipo_modulo'),)
+        db_table = 'catalogo_respuestas'
+        verbose_name = "respuesta"
+        verbose_name_plural = "respuestas"
+        unique_together = (('idcatalogorespuestas', 'catapreg_idpregunta'),)
 
 
 class Ficha(models.Model):
@@ -383,6 +390,6 @@ class FichaRespuestas(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'FichaRespuestas'
+        db_table = 'Ficha_Respuestas'
         unique_together = (('idFicha', 'idrespuestas', 'idpregunta',
                             'idseccion', 'idtipo_modulo'),)

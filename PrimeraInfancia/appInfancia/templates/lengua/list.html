@@ -1,0 +1,45 @@
+{% extends 'plantilla1.html'%}
+{% block butom %}
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href="{% url 'appInfancia:lengua_create' %}"
+       class="btn btn-primary"><i class="bi bi-plus"></i> Nuevo</a>
+</div>
+{% endblock butom %}
+
+{% block thead %}
+<tr>
+    <th>Codigo</th>
+    <th>Nombre</th>
+    <th>Estado</th>
+    <th>Opciones</th>
+</tr>
+{% endblock thead %}
+
+{% block tbody %}
+{% for lengua in object_list %}
+<tr>
+    <td>{{lengua.idlengua}}</td>
+    <td>{{lengua.nombre}}</td>
+    <td><span class="badge bg-success">{{lengua.get_estado_display}}</span></td>
+    <td>
+        <a type="button" class="btn btn-sm btn-outline-success"
+           href="{% url 'appInfancia:lengua_edit' lengua.idlengua %}">
+            <i class="bi bi-pencil-square"></i>
+        </a>
+        <a type="button" class="btn btn-sm btn-outline-danger"
+           href="{% url 'appInfancia:lengua_delete' lengua.idlengua%}">
+            <i class="bi bi-trash"></i>
+        </a>
+
+    </td>
+</tr>
+
+
+{% endfor %}
+
+
+{% endblock tbody %}
+
+
+
+
